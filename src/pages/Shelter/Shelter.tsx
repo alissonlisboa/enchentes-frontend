@@ -52,7 +52,7 @@ const Shelter = () => {
           <Button
             size="sm"
             variant="ghost"
-            className="[&_svg]:stroke-white disabled:bg-red-500 hover:bg-red-400"
+            className="[&_svg]:stroke-white disabled:bg-slate-800 hover:bg-slate-700"
             onClick={() => navigate('/')}
           >
             <ChevronLeft size={20} />
