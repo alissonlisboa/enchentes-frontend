@@ -51,7 +51,7 @@ const SignInComponent = () => {
         <form onSubmit={handleSubmit} className="contents">
           <div className="justify-center flex flex-col md:justify-normal">
             <h1 className="font-bold text-lg md:text-2xl text-red-600">
-              SOS Rio Grande do Sul
+              SOS Encontros de Fé
             </h1>
             <span className="text-muted-foreground">
               Preencha abaixo as credenciais de acesso.

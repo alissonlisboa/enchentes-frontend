@@ -1,5 +1,5 @@
 import { Fragment, useCallback, useContext, useMemo, useState } from 'react';
-import { RotateCw, CircleAlert, Search, Loader, ListFilter, LogOutIcon, Heart } from 'lucide-react';
+import { RotateCw, CircleAlert, Search, Loader, ListFilter, LogOutIcon } from 'lucide-react';
 
 import { Alert, Header, NoFoundSearch, ShelterListItem } from '@/components';
 import { Input } from '@/components/ui/input';
@@ -82,7 +82,7 @@ const Home = () => {
     <div className="flex flex-col h-screen items-center">
       {isModalOpen && <Filter handleSearch={handleSearch} isModalOpen={isModalOpen} closeModal={closeModal} filters={shelters.filters} />}
       <Header
-        title="SOS Rio Grande do Sul"
+        title="SOS Encontros de Fé"
         endAdornment={
           <div className="flex gap-2 items-center">
             {session && (
@@ -95,7 +95,7 @@ const Home = () => {
               variant="ghost"
               size="sm"
               onClick={() => clearSearch()}
-              className="disabled:bg-red-500 hover:bg-red-400"
+              className="disabled:bg-slate-800 hover:bg-slate-700"
             >
               <RotateCw size={20} className="stroke-white" />
             </Button>
@@ -108,7 +108,7 @@ const Home = () => {
                   localStorage.removeItem('token');
                   refreshSession();
                 }}
-                className="disabled:bg-red-500 hover:bg-red-400"
+                className="disabled:bg-slate-800 hover:bg-slate-700"
               >
                 <LogOutIcon size={20} className="stroke-white" />
               </Button>
@@ -185,30 +185,6 @@ const Home = () => {
             </Fragment>
           )}
         </main>
-      </div>
-      <div className="w-full flex-col md:flex-row py-8 md:py-4 px-2 md-p4 flex gap-3 justify-center flex-wrap items-center bg-red-600">
-        <p className="text-white">
-          Para cadastrar novos abrigos clique{' '}
-          <a
-            href="https://forms.gle/2S7L2gR529Dc8P3T9"
-            className="underline hover:text-gray-300"
-            target="_blank"
-          >
-            aqui
-          </a>
-        </p>
-        <span className="text-white hidden md:block">•</span>
-        <span className="text-white flex flex-nowrap gap-2 items-center">
-          Projeto Open Source disponível em{' '}
-          <a
-            className="underline hover:text-gray-300 flex"
-            href="https://github.com/SOS-RS"
-            target="_blank"
-          >
-            Github
-          </a>
-          <Heart className="h-3 w-3 stroke-white fill-white" />
-        </span>
       </div>
     </div>
   );
