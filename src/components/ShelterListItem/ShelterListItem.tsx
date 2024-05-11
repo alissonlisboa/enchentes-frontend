@@ -9,6 +9,7 @@ import { Separator } from '../ui/separator';
 import { Chip } from '../Chip';
 import { Button } from '../ui/button';
 import { VerifiedBadge } from '@/components/VerifiedBadge/VerifiedBadge.tsx';
+import { SupplyPriority } from '@/service/supply/types';
 
 const ShelterListItem = (props: IShelterListItemProps) => {
   const { data } = props;
@@ -20,10 +21,18 @@ const ShelterListItem = (props: IShelterListItemProps) => {
       [capacity, shelteredPeople]
     );
 
-  const tags = useMemo(
+  const needed = useMemo(
     () => {
       return data.shelterSupplies?.filter((s) => !getCategoriesToFilterVolunteers().some(c => c.includes(s.supply?.supplyCategory?.name.toLowerCase())))
-        .sort((a, b) => b.priority - a.priority).slice(0, 10)
+        .sort((a, b) => b.priority - a.priority).filter((urgency) => urgency.priority != SupplyPriority.Remaining).slice(0, 10)
+    },
+    [data.shelterSupplies]
+  );
+
+  const available = useMemo(
+    () => {
+      return data.shelterSupplies?.filter((s) => !getCategoriesToFilterVolunteers().some(c => c.includes(s.supply?.supplyCategory?.name.toLowerCase())))
+        .sort((a, b) => b.priority - a.priority).filter((urgency) => urgency.priority == SupplyPriority.Remaining).slice(0, 10)
     },
     [data.shelterSupplies]
   );
@@ -88,7 +97,22 @@ const ShelterListItem = (props: IShelterListItemProps) => {
               Necessita urgente de doações de:
             </p>
             <div className="flex gap-2 flex-wrap">
-              {tags.map((s, idx) => (
+              {needed.map((s, idx) => (
+                <Chip
+                  className={getSupplyPriorityProps(s.priority).className}
+                  key={idx}
+                  label={s.supply.name}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col gap-3">
+            <Separator className="mt-2" />
+            <p className="text-muted-foreground text-sm md:text-lg font-medium">
+              Disponível para doar:
+            </p>
+            <div className="flex gap-2 flex-wrap">
+              {available.map((s, idx) => (
                 <Chip
                   className={getSupplyPriorityProps(s.priority).className}
                   key={idx}
